@@ -5,6 +5,7 @@ import path from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: '/MonPortfolio/',  // ← IMPORTANT pour GitHub Pages
   plugins: [
     react(),
     tailwindcss()
