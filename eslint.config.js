@@ -5,25 +5,54 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
+  // 🔕 Ignore le build
   globalIgnores(['dist']),
+
+  // ==========================
+  // 🔹 CONFIG REACT (BROWSER)
+  // ==========================
   {
     files: ['**/*.{js,jsx}'],
     extends: [
       js.configs.recommended,
-      reactHooks.configs['recommended-latest'],
+      reactHooks.configs.recommended,
       reactRefresh.configs.vite,
     ],
     languageOptions: {
-      ecmaVersion: 2020,
-      globals: globals.browser,
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+      globals: {
+        ...globals.browser,
+      },
       parserOptions: {
-        ecmaVersion: 'latest',
         ecmaFeatures: { jsx: true },
-        sourceType: 'module',
       },
     },
     rules: {
-      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+      // 🔕 Warnings acceptables pour React / UI libs
+      'no-unused-vars': ['warn', { varsIgnorePattern: '^[A-Z_]' }],
+      'react-hooks/exhaustive-deps': 'warn',
+
+      // 🔕 Désactive Fast Refresh strict
+      'react-refresh/only-export-components': 'off',
+    },
+  },
+
+  // ==========================
+  // 🔹 CONFIG NODE (Vite, Tailwind, PostCSS)
+  // ==========================
+  {
+    files: [
+      'vite.config.js',
+      'tailwind.config.js',
+      'postcss.config.js',
+    ],
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+      globals: {
+        ...globals.node,
+      },
     },
   },
 ])

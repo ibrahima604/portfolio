@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React from "react";
 import { Linkedin, Github } from "lucide-react";
 import { TypingAnimation } from "@/components/magicui/typing-animation";
 import { RainbowButton } from "@/components/magicui/rainbow-button";
