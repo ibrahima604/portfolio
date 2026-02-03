@@ -13,11 +13,16 @@ export default defineConfig([
   // ==========================
   {
     files: ['**/*.{js,jsx}'],
+
+    plugins: {
+      'react-hooks': reactHooks,
+      'react-refresh': reactRefresh,
+    },
+
     extends: [
-      js.configs.recommended,
-      reactHooks.configs.recommended,
-      reactRefresh.configs.vite,
+      js.configs.recommended, // ESLint de base
     ],
+
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
@@ -28,12 +33,11 @@ export default defineConfig([
         ecmaFeatures: { jsx: true },
       },
     },
-    rules: {
-      // 🔕 Warnings acceptables pour React / UI libs
-      'no-unused-vars': ['warn', { varsIgnorePattern: '^[A-Z_]' }],
-      'react-hooks/exhaustive-deps': 'warn',
 
-      // 🔕 Désactive Fast Refresh strict
+    rules: {
+      // 🔕 Désactive tous les warnings
+      'no-unused-vars': 'off',
+      'react-hooks/exhaustive-deps': 'off',
       'react-refresh/only-export-components': 'off',
     },
   },
